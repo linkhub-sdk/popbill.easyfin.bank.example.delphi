@@ -2,7 +2,10 @@ program prjEasyFinBankExample;
 
 uses
   Forms,
-  Example in 'Example.pas' {Form1};
+  Example in 'Example.pas' {Form1},
+  Popbill in 'Popbill\Popbill.pas',
+  Linkhub in 'Linkhub\Linkhub.pas',
+  PopbillEasyFinBank in 'PopbillEasyFinBank\PopbillEasyFinBank.pas';
 
 {$R *.RES}
 
