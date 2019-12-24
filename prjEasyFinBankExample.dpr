@@ -2,7 +2,7 @@ program prjEasyFinBankExample;
 
 uses
   Forms,
-  Example in 'Example.pas' {Form1},
+  Example in 'Example.pas' {TfrmExample},
   Popbill in 'Popbill\Popbill.pas',
   Linkhub in 'Linkhub\Linkhub.pas',
   PopbillEasyFinBank in 'PopbillEasyFinBank\PopbillEasyFinBank.pas';
@@ -11,6 +11,6 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TTfrmExample, TfrmExample);
   Application.Run;
 end.
