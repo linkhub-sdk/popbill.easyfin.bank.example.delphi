@@ -248,14 +248,14 @@ object TfrmExample: TTfrmExample
     object Label2: TLabel
       Left = 16
       Top = 224
-      Width = 143
+      Width = 136
       Height = 13
       Caption = '수집 작업 아이디 (JobID) : '
     end
     object Label1: TLabel
       Left = 384
       Top = 224
-      Width = 127
+      Width = 120
       Height = 13
       Caption = '거래내역 아이디(TID) : '
     end
