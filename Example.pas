@@ -720,16 +720,16 @@ begin
         {************************************************************************}
 
         // 은행코드
-        bankCode := '0000';
+        bankCode := '0048';
 
         // 계좌번호
-        accountNumber := '131020538600';
+        accountNumber := '131020538645';
 
         // 시작일자, 날자형식(yyyyMMdd)
-        SDate := '20191001';
+        SDate := '20200101';
 
         // 종료일자, 날자형식(yyyyMMdd)
-        EDate := '20191223';
+        EDate := '20200210';
 
         try
                 jobID := easyFinBankService.RequestJob(txtCorpNum.text, bankCode, accountNumber, SDate, EDate);
