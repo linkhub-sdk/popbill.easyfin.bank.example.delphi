@@ -1,7 +1,7 @@
 {********************************************************************************}
 { 팝빌 간편 계좌조회 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2020-01-29
+{ - 업데이트 일자 : 2020-02-12
 { - 연동 기술지원 연락처 : 1600-9854 / code@linkhub.co.kr
 { - SDK 튜토리얼 : https://docs.popbill.com/easyfinbank/tutorial/delphi
 {
@@ -723,7 +723,7 @@ begin
         bankCode := '0048';
 
         // 계좌번호
-        accountNumber := '131020538645';
+        accountNumber := '131020538600';
 
         // 시작일자, 날자형식(yyyyMMdd)
         SDate := '20200101';
