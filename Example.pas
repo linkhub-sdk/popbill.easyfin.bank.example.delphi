@@ -720,16 +720,16 @@ begin
         {************************************************************************}
 
         // 은행코드
-        bankCode := '0048';
+        bankCode := '0000';
 
         // 계좌번호
-        accountNumber := '131020538600';
+        accountNumber := '74620246401';
 
         // 시작일자, 날자형식(yyyyMMdd)
         SDate := '20200101';
 
         // 종료일자, 날자형식(yyyyMMdd)
-        EDate := '20200210';
+        EDate := '20200325';
 
         try
                 jobID := easyFinBankService.RequestJob(txtCorpNum.text, bankCode, accountNumber, SDate, EDate);
@@ -897,6 +897,7 @@ begin
                 tmp := tmp + 'perPage (페이지당 검색개수) : ' + IntToStr(searchInfo.perPage) + #13;
                 tmp := tmp + 'pageNum (페이지 번호) : ' + IntToStr(searchInfo.pageNum) + #13;
                 tmp := tmp + 'pageCount (페이지 개수) : ' + IntToStr(searchInfo.pageCount)+ #13;
+                tmp := tmp + 'lastScrapDT (최종 조회일시) : ' + searchInfo.lastScrapDT + #13;
                 tmp := tmp + 'message (응답 메시지) : ' + searchInfo.message + #13 + #13;
 
                 for i := 0 to length(searchInfo.list) - 1 do
