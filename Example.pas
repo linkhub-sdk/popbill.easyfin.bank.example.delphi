@@ -119,7 +119,7 @@ begin
         easyFinBankService := TEasyFinBankService.Create(LinkID,SecretKey);
 
         // 연동환경 설정값, true(개발용), false(상업용)
-        easyFinBankService.IsTest := true;
+        easyFinBankService.IsTest := false;
 
         // Exception 처리여부,  기본값(true)
         easyFinBankService.IsThrowException := true;
@@ -723,13 +723,13 @@ begin
         bankCode := '0000';
 
         // 계좌번호
-        accountNumber := '74620246401';
+        accountNumber := '0022197672400';
 
         // 시작일자, 날자형식(yyyyMMdd)
         SDate := '20200101';
 
         // 종료일자, 날자형식(yyyyMMdd)
-        EDate := '20200325';
+        EDate := '20200326';
 
         try
                 jobID := easyFinBankService.RequestJob(txtCorpNum.text, bankCode, accountNumber, SDate, EDate);
