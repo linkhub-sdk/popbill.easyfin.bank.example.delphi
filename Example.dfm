@@ -291,6 +291,7 @@ object TfrmExample: TTfrmExample
         Height = 33
         Caption = '°èÁÂ µî·Ï'
         TabOrder = 2
+        OnClick = btnRegistBankAccountClick
       end
       object btnUpdateBankAccount: TButton
         Left = 8
