@@ -1,6 +1,6 @@
 object TfrmExample: TTfrmExample
-  Left = 302
-  Top = 195
+  Left = 301
+  Top = 194
   Width = 1139
   Height = 776
   Caption = '팝빌 간편 계좌조회 Delphi SDK Example'
@@ -262,26 +262,69 @@ object TfrmExample: TTfrmExample
     object GroupBox3: TGroupBox
       Left = 384
       Top = 24
-      Width = 153
+      Width = 420
       Height = 153
       Caption = '계좌 관리'
       TabOrder = 0
       object btnGetBankAccountMgtURL: TButton
-        Left = 8
+        Left = 296
         Top = 24
-        Width = 137
+        Width = 115
         Height = 33
         Caption = '계좌 관리 팝업 URL'
         TabOrder = 0
         OnClick = btnGetBankAccountMgtURLClick
       end
       object btnListBankAccount: TButton
-        Left = 8
-        Top = 64
-        Width = 137
+        Left = 136
+        Top = 24
+        Width = 151
         Height = 33
         Caption = '계좌 목록 확인'
         TabOrder = 1
+        OnClick = btnListBankAccountClick
+      end
+      object btnRegistBankAccount: TButton
+        Left = 8
+        Top = 24
+        Width = 122
+        Height = 33
+        Caption = '계좌 등록'
+        TabOrder = 2
+      end
+      object btnUpdateBankAccount: TButton
+        Left = 8
+        Top = 64
+        Width = 122
+        Height = 33
+        Caption = '계좌정보 수정'
+        TabOrder = 3
+      end
+      object btnGetBankAccountInfo: TButton
+        Left = 8
+        Top = 104
+        Width = 122
+        Height = 33
+        Caption = '계좌 정보 확인(단건)'
+        TabOrder = 4
+        OnClick = btnListBankAccountClick
+      end
+      object Button1: TButton
+        Left = 136
+        Top = 64
+        Width = 151
+        Height = 33
+        Caption = '계좌 정액제 해지신청'
+        TabOrder = 5
+        OnClick = btnListBankAccountClick
+      end
+      object Button2: TButton
+        Left = 136
+        Top = 104
+        Width = 151
+        Height = 33
+        Caption = '계좌 정액제 해지신청 취소'
+        TabOrder = 6
         OnClick = btnListBankAccountClick
       end
     end
@@ -356,7 +399,7 @@ object TfrmExample: TTfrmExample
       end
     end
     object GroupBox12: TGroupBox
-      Left = 552
+      Left = 816
       Top = 24
       Width = 169
       Height = 153

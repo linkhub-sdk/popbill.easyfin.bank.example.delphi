@@ -73,6 +73,11 @@ type
     txtJobID: TEdit;
     Label1: TLabel;
     txtTID: TEdit;
+    btnRegistBankAccount: TButton;
+    btnUpdateBankAccount: TButton;
+    btnGetBankAccountInfo: TButton;
+    Button1: TButton;
+    Button2: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -119,7 +124,7 @@ begin
         easyFinBankService := TEasyFinBankService.Create(LinkID,SecretKey);
 
         // 연동환경 설정값, true(개발용), false(상업용)
-        easyFinBankService.IsTest := false;
+        easyFinBankService.IsTest := true;
 
         // Exception 처리여부,  기본값(true)
         easyFinBankService.IsThrowException := true;
@@ -702,6 +707,14 @@ begin
                     tmp := tmp + bankAccountList[i].accountName + ' | ';
                     tmp := tmp + bankAccountList[i].accountType + ' | ';
                     tmp := tmp + IntToStr(bankAccountList[i].state) + ' | ';
+                    tmp := tmp + bankAccountList[i].contractDT + ' | ';
+                    tmp := tmp + IntToStr(bankAccountList[i].baseDate) + ' | ';
+                    tmp := tmp + bankAccountList[i].useEndDate + ' | ';
+                    tmp := tmp + IntToStr(bankAccountList[i].contractState) + ' | ';
+                    tmp := tmp + BoolToStr(bankAccountList[i].closeRequestYN) + ' | ';
+                    tmp := tmp + BoolToStr(bankAccountList[i].useRestrictYN) + ' | ';
+                    tmp := tmp + BoolToStr(bankAccountList[i].closeOnExpired) + ' | ';
+                    tmp := tmp + BoolToStr(bankAccountList[i].unPaidYN) + ' | ';
                     tmp := tmp + bankAccountList[i].memo + #13;
                 end;
                 ShowMessage(tmp);
