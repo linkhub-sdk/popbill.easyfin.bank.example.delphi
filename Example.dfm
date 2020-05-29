@@ -300,6 +300,7 @@ object TfrmExample: TTfrmExample
         Height = 33
         Caption = '계좌정보 수정'
         TabOrder = 3
+        OnClick = btnUpdateBankAccountClick
       end
       object btnGetBankAccountInfo: TButton
         Left = 8
