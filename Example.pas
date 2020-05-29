@@ -75,9 +75,9 @@ type
     txtTID: TEdit;
     btnRegistBankAccount: TButton;
     btnUpdateBankAccount: TButton;
-    btnGetBankAccountInfo: TButton;
     Button1: TButton;
     Button2: TButton;
+    btnGetBankAccountInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -107,6 +107,7 @@ type
       var CanSelect: Boolean);
     procedure btnRegistBankAccountClick(Sender: TObject);
     procedure btnUpdateBankAccountClick(Sender: TObject);
+    procedure btnGetBankAccountInfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1080,9 +1081,7 @@ end;
 procedure TTfrmExample.btnUpdateBankAccountClick(Sender: TObject);
 var
         response : TResponse;
-        usePeriod : String;
         bankInfo : TEasyFinBankAccountForm;        
-        
 begin
         {**********************************************************************}
         { 팝빌에 등록된 계좌정보를 수정합니다.
@@ -1124,6 +1123,53 @@ begin
                 end;
         end;
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
+
+procedure TTfrmExample.btnGetBankAccountInfoClick(Sender: TObject);
+var
+        bankAccountInfo : TEasyFinBankAccountInfo;
+        BankCode, AccountNumber, tmp : string;
+
+begin
+        {**********************************************************************}
+        { 팝빌에 등록된 계좌정보를 확인합니다.
+        {**********************************************************************}
+
+
+         // [필수] 은행코드
+        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
+        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
+        BankCode := '0032';
+        
+        // [필수] 계좌번호 하이픈('-') 제외
+        AccountNumber := '1122197672406';
+
+        try
+                bankAccountInfo := easyFinBankService.GetBankAccountInfo(txtCorpNum.text, BankCode, AccountNumber);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'bankCode (은행코드) : ' + bankAccountInfo.bankCode + #13;
+        tmp := tmp + 'accountNumber (계좌번호) : ' + bankAccountInfo.accountNumber + #13;
+        tmp := tmp + 'accountName (계좌별칭) : ' + bankAccountInfo.accountName + #13;
+        tmp := tmp + 'accountType (계좌유형) : ' + bankAccountInfo.accountType + #13;
+        tmp := tmp + 'state (계좌상태) : ' + IntToStr(bankAccountInfo.state) + #13;
+        tmp := tmp + 'regDT (등록일시) : ' + bankAccountInfo.regDT + #13;
+        tmp := tmp + 'memo (메모) : ' + bankAccountInfo.memo + #13;
+        tmp := tmp + 'contractDT (정액제 서비스 시작일시) : ' + bankAccountInfo.contractDt + #13;
+        tmp := tmp + 'useEndDate (정액제 서비스 종료일) : ' + bankAccountInfo.useEndDate + #13;
+        tmp := tmp + 'contractState (정액제 상태) : ' + IntToStr(bankAccountInfo.contractState) + #13;
+        tmp := tmp + 'closeRequestYN (정액제 서비스 해지신청 여부) : ' + BoolToStr(bankAccountInfo.closeRequestYN) + #13;
+        tmp := tmp + 'useRestrictYN (정액제 서비스 사용제한 여부) : ' + BoolToStr(bankAccountInfo.useRestrictYN) + #13;
+        tmp := tmp + 'closeOnExpired (정액제 서비스 만료 시 해지여부) : ' + BoolToStr(bankAccountInfo.closeOnExpired) + #13;
+        tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(bankAccountInfo.unPaidYN) + #13;                
+
+        ShowMessage(tmp);
 end;
 
 end.
