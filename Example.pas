@@ -75,9 +75,9 @@ type
     txtTID: TEdit;
     btnRegistBankAccount: TButton;
     btnUpdateBankAccount: TButton;
-    Button1: TButton;
-    Button2: TButton;
     btnGetBankAccountInfo: TButton;
+    btnCloseBankAccount: TButton;
+    btnRevokeCloseBankAccount: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -108,6 +108,8 @@ type
     procedure btnRegistBankAccountClick(Sender: TObject);
     procedure btnUpdateBankAccountClick(Sender: TObject);
     procedure btnGetBankAccountInfoClick(Sender: TObject);
+    procedure btnCloseBankAccountClick(Sender: TObject);
+    procedure btnRevokeCloseBankAccountClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1135,15 +1137,14 @@ begin
         { 팝빌에 등록된 계좌정보를 확인합니다.
         {**********************************************************************}
 
-
-         // [필수] 은행코드
+        // [필수] 은행코드
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        BankCode := '0032';
+        BankCode := '';
         
         // [필수] 계좌번호 하이픈('-') 제외
-        AccountNumber := '1122197672406';
+        AccountNumber := '';
 
         try
                 bankAccountInfo := easyFinBankService.GetBankAccountInfo(txtCorpNum.text, BankCode, AccountNumber);
@@ -1170,6 +1171,70 @@ begin
         tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(bankAccountInfo.unPaidYN) + #13;                
 
         ShowMessage(tmp);
+end;
+
+procedure TTfrmExample.btnCloseBankAccountClick(Sender: TObject);
+var
+        response : TResponse;
+        BankCode, AccountNumber, CloseType : string;
+begin
+        {**********************************************************************}
+        { 팝빌에 등록된 계좌 정액제 해지를 신청합니다.
+        {**********************************************************************}
+
+        // [필수] 은행코드
+        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
+        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
+        BankCode := '';
+        
+        // [필수] 계좌번호 하이픈('-') 제외
+        AccountNumber := '';
+
+        // 해지유형, '일반', '중도' 중 선택기재
+        // 일반해지 - 이용중인 정액제 사용기간까지 이용 후 정지
+        // 중도해지 - 요청일 기준으로 정지, 정액제 잔여기간은 일할로 계산되어 포인트 환불 (무료 이용기간 중 중도해지 시 전액 환불)
+        CloseType := '중도';
+
+        try
+                response := easyFinBankService.CloseBankAccountInfo(txtCorpNum.text, BankCode, AccountNumber, CloseType);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
+
+procedure TTfrmExample.btnRevokeCloseBankAccountClick(Sender: TObject);
+var
+        response : TResponse;
+        BankCode, AccountNumber : string;
+begin
+        {**********************************************************************}
+        { 계좌 정액제 해지신청을 취소합니다.
+        {**********************************************************************}
+
+        // [필수] 은행코드
+        // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
+        // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
+        // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
+        BankCode := '';
+        
+        // [필수] 계좌번호 하이픈('-') 제외
+        AccountNumber := '';
+
+
+        try
+                response := easyFinBankService.RevokeCloseBankAccountInfo(txtCorpNum.text, BankCode, AccountNumber);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
 end.

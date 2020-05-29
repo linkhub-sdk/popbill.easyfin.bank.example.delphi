@@ -260,16 +260,16 @@ object TfrmExample: TTfrmExample
       Caption = '거래내역 아이디(TID) : '
     end
     object GroupBox3: TGroupBox
-      Left = 384
+      Left = 368
       Top = 24
-      Width = 420
+      Width = 433
       Height = 153
       Caption = '계좌 관리'
       TabOrder = 0
       object btnGetBankAccountMgtURL: TButton
         Left = 296
         Top = 24
-        Width = 115
+        Width = 125
         Height = 33
         Caption = '계좌 관리 팝업 URL'
         TabOrder = 0
@@ -302,32 +302,32 @@ object TfrmExample: TTfrmExample
         TabOrder = 3
         OnClick = btnUpdateBankAccountClick
       end
-      object Button1: TButton
-        Left = 136
-        Top = 64
-        Width = 151
-        Height = 33
-        Caption = '계좌 정액제 해지신청'
-        TabOrder = 4
-        OnClick = btnListBankAccountClick
-      end
-      object Button2: TButton
-        Left = 136
-        Top = 104
-        Width = 151
-        Height = 33
-        Caption = '계좌 정액제 해지신청 취소'
-        TabOrder = 5
-        OnClick = btnListBankAccountClick
-      end
       object btnGetBankAccountInfo: TButton
         Left = 8
         Top = 104
         Width = 121
         Height = 33
         Caption = '계좌정보 확인'
-        TabOrder = 6
+        TabOrder = 4
         OnClick = btnGetBankAccountInfoClick
+      end
+      object btnCloseBankAccount: TButton
+        Left = 136
+        Top = 64
+        Width = 153
+        Height = 33
+        Caption = '계좌 정액제 해지신청'
+        TabOrder = 5
+        OnClick = btnCloseBankAccountClick
+      end
+      object btnRevokeCloseBankAccount: TButton
+        Left = 136
+        Top = 104
+        Width = 153
+        Height = 33
+        Caption = '계좌 정액제 해지신청 취소'
+        TabOrder = 6
+        OnClick = btnRevokeCloseBankAccountClick
       end
     end
     object GroupBox5: TGroupBox
@@ -366,7 +366,7 @@ object TfrmExample: TTfrmExample
       end
     end
     object GroupBox6: TGroupBox
-      Left = 192
+      Left = 184
       Top = 24
       Width = 177
       Height = 153
@@ -401,7 +401,7 @@ object TfrmExample: TTfrmExample
       end
     end
     object GroupBox12: TGroupBox
-      Left = 816
+      Left = 808
       Top = 24
       Width = 169
       Height = 153
