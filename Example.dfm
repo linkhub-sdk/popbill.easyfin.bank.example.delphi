@@ -1,6 +1,6 @@
 object TfrmExample: TTfrmExample
-  Left = 334
-  Top = 158
+  Left = 634
+  Top = 217
   Width = 1139
   Height = 776
   Caption = '팝빌 간편 계좌조회 Delphi SDK Example'
@@ -329,6 +329,15 @@ object TfrmExample: TTfrmExample
         TabOrder = 6
         OnClick = btnRevokeCloseBankAccountClick
       end
+      object btnDeleteBankAccount: TButton
+        Left = 296
+        Top = 64
+        Width = 125
+        Height = 33
+        Caption = '종량제 계좌 삭제'
+        TabOrder = 7
+        OnClick = btnDeleteBankAccountClick
+      end
     end
     object GroupBox5: TGroupBox
       Left = 16
@@ -460,6 +469,7 @@ object TfrmExample: TTfrmExample
       Top = 221
       Width = 193
       Height = 21
+      ImeName = '한국어 입력 시스템 (IME 2000)'
       TabOrder = 5
     end
     object txtTID: TEdit
@@ -467,6 +477,7 @@ object TfrmExample: TTfrmExample
       Top = 221
       Width = 225
       Height = 21
+      ImeName = '한국어 입력 시스템 (IME 2000)'
       TabOrder = 6
     end
   end
