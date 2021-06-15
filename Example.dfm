@@ -1,6 +1,6 @@
 object TfrmExample: TTfrmExample
-  Left = 634
-  Top = 217
+  Left = 711
+  Top = 183
   Width = 1139
   Height = 776
   Caption = '팝빌 간편 계좌조회 Delphi SDK Example'
@@ -52,7 +52,7 @@ object TfrmExample: TTfrmExample
     Left = 24
     Top = 48
     Width = 1081
-    Height = 161
+    Height = 185
     Caption = '팝빌 기본 API'
     TabOrder = 2
     object GroupBox9: TGroupBox
@@ -111,12 +111,12 @@ object TfrmExample: TTfrmExample
       Left = 608
       Top = 24
       Width = 145
-      Height = 121
+      Height = 153
       Caption = '담당자 관련'
       TabOrder = 2
       object btnUpdateContact: TButton
         Left = 8
-        Top = 88
+        Top = 120
         Width = 129
         Height = 25
         Caption = '담당자 정보 수정'
@@ -134,12 +134,21 @@ object TfrmExample: TTfrmExample
       end
       object btnListContact: TButton
         Left = 8
-        Top = 56
+        Top = 88
         Width = 129
         Height = 25
         Caption = '담당자 목록 조회'
         TabOrder = 2
         OnClick = btnListContactClick
+      end
+      object btnGetContactInfo: TButton
+        Left = 8
+        Top = 56
+        Width = 129
+        Height = 25
+        Caption = '담당자 정보 확인'
+        TabOrder = 3
+        OnClick = btnGetContactInfoClick
       end
     end
     object GroupBox16: TGroupBox
@@ -215,7 +224,7 @@ object TfrmExample: TTfrmExample
       Left = 456
       Top = 24
       Width = 147
-      Height = 121
+      Height = 153
       Caption = '파트너과금 포인트'
       TabOrder = 6
       object btnGetPartnerBalance: TButton
@@ -236,13 +245,31 @@ object TfrmExample: TTfrmExample
         TabOrder = 1
         OnClick = btnGetPartnerURL_CHRGClick
       end
+      object btnGetPaymentURL: TButton
+        Left = 8
+        Top = 88
+        Width = 129
+        Height = 25
+        Caption = '포인트 결제내역 URL'
+        TabOrder = 2
+        OnClick = btnGetPaymentURLClick
+      end
+      object btnGetUseHistoryURL: TButton
+        Left = 8
+        Top = 120
+        Width = 129
+        Height = 25
+        Caption = '포인트 사용내역 URL'
+        TabOrder = 3
+        OnClick = btnGetUseHistoryURLClick
+      end
     end
   end
   object GroupBox1: TGroupBox
     Left = 24
-    Top = 224
+    Top = 240
     Width = 1081
-    Height = 497
+    Height = 481
     Caption = '간편 계좌조회 API'
     TabOrder = 3
     object Label2: TLabel

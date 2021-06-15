@@ -79,6 +79,9 @@ type
     btnCloseBankAccount: TButton;
     btnRevokeCloseBankAccount: TButton;
     btnDeleteBankAccount: TButton;
+    btnGetPaymentURL: TButton;
+    btnGetUseHistoryURL: TButton;
+    btnGetContactInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -112,6 +115,9 @@ type
     procedure btnCloseBankAccountClick(Sender: TObject);
     procedure btnRevokeCloseBankAccountClick(Sender: TObject);
     procedure btnDeleteBankAccountClick(Sender: TObject);
+    procedure btnGetPaymentURLClick(Sender: TObject);
+    procedure btnGetUseHistoryURLClick(Sender: TObject);
+    procedure btnGetContactInfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1274,6 +1280,90 @@ begin
                 end;
         end;
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
+
+procedure TTfrmExample.btnGetPaymentURLClick(Sender: TObject);
+var
+        resultURL : String;
+begin
+        {**********************************************************************}
+        { 연동회원 포인트 결제내역 팝업 URL을 반환한다.
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초이다.
+        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPaymentURL
+        {**********************************************************************}
+        
+        try
+                resultURL := easyFinBankService.getPaymentURL(txtCorpNum.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('URL :  ' + #13 + resultURL);
+end;
+
+procedure TTfrmExample.btnGetUseHistoryURLClick(Sender: TObject);
+var
+        resultURL : String;
+begin
+        {**********************************************************************}
+        { 연동회원 포인트 사용내역 팝업 URL을 반환한다.
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초이다.
+        { - https://docs.popbill.com/easyfinbank/delphi/api#GetUseHistoryURL
+        {**********************************************************************}
+
+        try
+                resultURL := easyFinBankService.getUseHistoryURL(txtCorpNum.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('URL :  ' + #13 + resultURL);
+
+end;
+
+procedure TTfrmExample.btnGetContactInfoClick(Sender: TObject);
+var
+        contactInfo : TContactInfo;
+        contactID : string;
+        tmp : string;
+begin
+        {**********************************************************************}
+        { 연동회원 사업자번호에 등록된 담당자 정보를 확인한다.
+        { - https://docs.popbill.com/easyfinbank/delphi/api#GetContactInfo
+        {**********************************************************************}
+
+        contactID := 'testkorea';
+        
+        try
+                contactInfo := easyFinBankService.getContactInfo(txtCorpNum.Text, contactID);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+ easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'id (아이디) : ' + contactInfo.id + #13;
+                tmp := tmp + 'personName (담당자 성명) : ' + contactInfo.personName + #13;
+                tmp := tmp + 'tel (담당자 연락처(전화번호)) : ' + contactInfo.tel + #13;
+                tmp := tmp + 'hp (담당자 휴대폰번호) : ' + contactInfo.hp + #13;
+                tmp := tmp + 'fax (담당자 팩스번호) : ' + contactInfo.fax + #13;
+                tmp := tmp + 'email (담당자 이메일) : ' + contactInfo.email + #13;
+                tmp := tmp + 'regDT (등록 일시) : ' + contactInfo.regDT + #13;
+                tmp := tmp + 'searchRole (담당자 조회권한) : ' + contactInfo.searchRole + #13;
+                tmp := tmp + 'mgrYN (관리자 여부) : ' + booltostr(contactInfo.mgrYN) + #13;
+                tmp := tmp + 'state (계정상태) : ' + inttostr(contactInfo.state) + #13;
+                ShowMessage(tmp);
+        end
 end;
 
 end.
