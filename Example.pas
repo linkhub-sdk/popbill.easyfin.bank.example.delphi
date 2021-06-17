@@ -140,7 +140,7 @@ begin
         easyFinBankService.IsTest := true;
 
         // Exception 처리여부,  기본값(true)
-        easyFinBankService.IsThrowException := true;
+        easyFinBankService.IsThrowException := false;
 
         // 인증토큰 IP제한기능 사용여부, true(권장)
         easyFinBankService.IPRestrictOnOff := true;
@@ -218,7 +218,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
 
 end;
 
@@ -239,7 +246,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
 end;
 
 procedure TTfrmExample.btnJoinMemberClick(Sender: TObject);
@@ -299,7 +313,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetBalanceClick(Sender: TObject);
@@ -319,7 +341,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetChargeURLClick(Sender: TObject);
@@ -339,7 +369,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('포인트충전 URL ' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('포인트충전 URL ' + #13 + resultURL);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
@@ -359,7 +397,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetPartnerURL_CHRGClick(Sender: TObject);
@@ -379,7 +425,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('파트너 포인트충전 URL ' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
+
 end;
 
 procedure TTfrmExample.btnRegistContactClick(Sender: TObject);
@@ -421,7 +475,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnListContactClick(Sender: TObject);
@@ -444,23 +506,30 @@ begin
                 end;
         end;
 
-        tmp := 'id(아이디) | email(이메일) | hp(휴대폰) | personName(성명) | searchRole(담당자 조회 권한) | ';
-        tmp := tmp + 'tel(연락처) | fax(팩스) | mgrYN(관리자 여부) | regDT(등록일시) | state(상태)' + #13;
-
-        for i := 0 to Length(InfoList) -1 do
+        if easyFinBankService.LastErrCode <> 0 then
         begin
-            tmp := tmp + InfoList[i].id + ' | ';
-            tmp := tmp + InfoList[i].email + ' | ';
-            tmp := tmp + InfoList[i].hp + ' | ';
-            tmp := tmp + InfoList[i].personName + ' | ';
-            tmp := tmp + InfoList[i].searchRole + ' | ';
-            tmp := tmp + InfoList[i].tel + ' | ';
-            tmp := tmp + InfoList[i].fax + ' | ';
-            tmp := tmp + BoolToStr(InfoList[i].mgrYN) + ' | ';
-            tmp := tmp + InfoList[i].regDT + ' | ';
-            tmp := tmp + IntToStr(InfoList[i].state) + #13;
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'id(아이디) | email(이메일) | hp(휴대폰) | personName(성명) | searchRole(담당자 조회 권한) | ';
+                tmp := tmp + 'tel(연락처) | fax(팩스) | mgrYN(관리자 여부) | regDT(등록일시) | state(상태)' + #13;
+
+                for i := 0 to Length(InfoList) -1 do
+                begin
+                    tmp := tmp + InfoList[i].id + ' | ';
+                    tmp := tmp + InfoList[i].email + ' | ';
+                    tmp := tmp + InfoList[i].hp + ' | ';
+                    tmp := tmp + InfoList[i].personName + ' | ';
+                    tmp := tmp + InfoList[i].searchRole + ' | ';
+                    tmp := tmp + InfoList[i].tel + ' | ';
+                    tmp := tmp + InfoList[i].fax + ' | ';
+                    tmp := tmp + BoolToStr(InfoList[i].mgrYN) + ' | ';
+                    tmp := tmp + InfoList[i].regDT + ' | ';
+                    tmp := tmp + IntToStr(InfoList[i].state) + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
 end;
 
 procedure TTfrmExample.btnUpdateContactClick(Sender: TObject);
@@ -504,7 +573,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetCorpInfoClick(Sender: TObject);
@@ -526,12 +603,20 @@ begin
                 end;
         end;
 
-        tmp := 'CorpName (상호) : ' + corpInfo.CorpName + #13;
-        tmp := tmp + 'CeoName (대표자성명) : ' + corpInfo.CeoName + #13;
-        tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
-        tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
-        tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
-        ShowMessage(tmp);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'CorpName (상호) : ' + corpInfo.CorpName + #13;
+                tmp := tmp + 'CeoName (대표자성명) : ' + corpInfo.CeoName + #13;
+                tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
+                tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
+                tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
+                ShowMessage(tmp);
+        end;
+
 end;
 
 procedure TTfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
@@ -569,7 +654,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetAccessURLClick(Sender: TObject);
@@ -590,7 +683,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('팝빌 로그인 URL' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
 end;
 
 procedure TTfrmExample.btnGetFlatRatePopUpURLClick(Sender: TObject);
@@ -610,7 +710,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('정액제 신청 URL' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetFlatRateStateClick(Sender: TObject);
@@ -675,7 +783,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('계좌 관리 팝업 URL' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('계좌 관리 팝업 URL' + #13 + resultURL);
+        end;
+
 end;
 
 procedure TTfrmExample.btnListBankAccountClick(Sender: TObject);
@@ -1010,7 +1126,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+               ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
 end;
 
 procedure TTfrmExample.OnSelectCell(Sender: TObject; ACol, ARow: Integer;
@@ -1082,7 +1205,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+               ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnUpdateBankAccountClick(Sender: TObject);
@@ -1130,7 +1261,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+               ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetBankAccountInfoClick(Sender: TObject);
@@ -1162,22 +1301,30 @@ begin
                 end;
         end;
 
-        tmp := 'bankCode (은행코드) : ' + bankAccountInfo.bankCode + #13;
-        tmp := tmp + 'accountNumber (계좌번호) : ' + bankAccountInfo.accountNumber + #13;
-        tmp := tmp + 'accountName (계좌별칭) : ' + bankAccountInfo.accountName + #13;
-        tmp := tmp + 'accountType (계좌유형) : ' + bankAccountInfo.accountType + #13;
-        tmp := tmp + 'state (계좌상태) : ' + IntToStr(bankAccountInfo.state) + #13;
-        tmp := tmp + 'regDT (등록일시) : ' + bankAccountInfo.regDT + #13;
-        tmp := tmp + 'memo (메모) : ' + bankAccountInfo.memo + #13;
-        tmp := tmp + 'contractDT (정액제 서비스 시작일시) : ' + bankAccountInfo.contractDt + #13;
-        tmp := tmp + 'useEndDate (정액제 서비스 종료일) : ' + bankAccountInfo.useEndDate + #13;
-        tmp := tmp + 'contractState (정액제 상태) : ' + IntToStr(bankAccountInfo.contractState) + #13;
-        tmp := tmp + 'closeRequestYN (정액제 서비스 해지신청 여부) : ' + BoolToStr(bankAccountInfo.closeRequestYN) + #13;
-        tmp := tmp + 'useRestrictYN (정액제 서비스 사용제한 여부) : ' + BoolToStr(bankAccountInfo.useRestrictYN) + #13;
-        tmp := tmp + 'closeOnExpired (정액제 서비스 만료 시 해지여부) : ' + BoolToStr(bankAccountInfo.closeOnExpired) + #13;
-        tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(bankAccountInfo.unPaidYN) + #13;                
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'bankCode (은행코드) : ' + bankAccountInfo.bankCode + #13;
+                tmp := tmp + 'accountNumber (계좌번호) : ' + bankAccountInfo.accountNumber + #13;
+                tmp := tmp + 'accountName (계좌별칭) : ' + bankAccountInfo.accountName + #13;
+                tmp := tmp + 'accountType (계좌유형) : ' + bankAccountInfo.accountType + #13;
+                tmp := tmp + 'state (계좌상태) : ' + IntToStr(bankAccountInfo.state) + #13;
+                tmp := tmp + 'regDT (등록일시) : ' + bankAccountInfo.regDT + #13;
+                tmp := tmp + 'memo (메모) : ' + bankAccountInfo.memo + #13;
+                tmp := tmp + 'contractDT (정액제 서비스 시작일시) : ' + bankAccountInfo.contractDt + #13;
+                tmp := tmp + 'useEndDate (정액제 서비스 종료일) : ' + bankAccountInfo.useEndDate + #13;
+                tmp := tmp + 'contractState (정액제 상태) : ' + IntToStr(bankAccountInfo.contractState) + #13;
+                tmp := tmp + 'closeRequestYN (정액제 서비스 해지신청 여부) : ' + BoolToStr(bankAccountInfo.closeRequestYN) + #13;
+                tmp := tmp + 'useRestrictYN (정액제 서비스 사용제한 여부) : ' + BoolToStr(bankAccountInfo.useRestrictYN) + #13;
+                tmp := tmp + 'closeOnExpired (정액제 서비스 만료 시 해지여부) : ' + BoolToStr(bankAccountInfo.closeOnExpired) + #13;
+                tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(bankAccountInfo.unPaidYN) + #13;
 
-        ShowMessage(tmp);
+                ShowMessage(tmp);
+        end;
+
 end;
 
 procedure TTfrmExample.btnCloseBankAccountClick(Sender: TObject);
@@ -1212,7 +1359,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
 end;
 
 procedure TTfrmExample.btnRevokeCloseBankAccountClick(Sender: TObject);
@@ -1243,7 +1397,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
 end;
 
 procedure TTfrmExample.btnDeleteBankAccountClick(Sender: TObject);
@@ -1275,7 +1436,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        end;
+
 end;
 
 procedure TTfrmExample.btnGetPaymentURLClick(Sender: TObject);
@@ -1296,7 +1465,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL :  ' + #13 + resultURL);
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL :  ' + #13 + resultURL);
+        end;
 end;
 
 procedure TTfrmExample.btnGetUseHistoryURLClick(Sender: TObject);
@@ -1317,8 +1493,14 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL :  ' + #13 + resultURL);
-
+        if easyFinBankService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL :  ' + #13 + resultURL);
+        end;
 end;
 
 procedure TTfrmExample.btnGetContactInfoClick(Sender: TObject);
