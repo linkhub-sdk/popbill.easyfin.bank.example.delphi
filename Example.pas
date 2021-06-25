@@ -1162,7 +1162,7 @@ begin
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
         bankInfo.BankCode := '';
-        
+
         // [필수] 계좌번호 하이픈('-') 제외
         bankInfo.AccountNumber := '';
 
@@ -1411,7 +1411,7 @@ procedure TTfrmExample.btnDeleteBankAccountClick(Sender: TObject);
 var
         response : TResponse;
         usePeriod : String;
-        bankInfo : TEasyFinBankAccountForm;
+        BankCode, AccountNumber : string;
         
 begin
         {**********************************************************************}
@@ -1423,13 +1423,13 @@ begin
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        bankInfo.BankCode := '';
+        BankCode := '';
 
         // [필수] 계좌번호 하이픈('-') 제외
-        bankInfo.AccountNumber := '';
+        AccountNumber := '';
 
         try
-                response := easyFinBankService.DeleteBankAccount(txtCorpNum.text, bankInfo);
+                response := easyFinBankService.DeleteBankAccount(txtCorpNum.text, BankCode, AccountNumber);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
