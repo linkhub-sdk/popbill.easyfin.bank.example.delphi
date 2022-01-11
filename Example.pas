@@ -1,8 +1,8 @@
 {********************************************************************************}
 { 팝빌 간편 계좌조회 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2021-06-14
-{ - 연동 기술지원 연락처 : 1600-9854 / code@linkhub.co.kr
+{ - 업데이트 일자 : 2022-01-06
+{ - 연동 기술지원 연락처 : 1600-9854 / code@linkhubcorp.com
 { - SDK 튜토리얼 : https://docs.popbill.com/easyfinbank/tutorial/delphi
 {
 {********************************************************************************}
@@ -864,10 +864,10 @@ begin
         accountNumber := '0022197672400';
 
         // 시작일자, 날자형식(yyyyMMdd)
-        SDate := '20210601';
+        SDate := '20220101';
 
         // 종료일자, 날자형식(yyyyMMdd)
-        EDate := '20210615';
+        EDate := '20220110';
 
         try
                 jobID := easyFinBankService.RequestJob(txtCorpNum.text, bankCode, accountNumber, SDate, EDate);
