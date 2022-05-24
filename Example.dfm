@@ -59,12 +59,12 @@ object TfrmExample: TTfrmExample
       Left = 8
       Top = 24
       Width = 137
-      Height = 121
+      Height = 97
       Caption = '회원가입'
       TabOrder = 0
       object btnJoinMember: TButton
         Left = 8
-        Top = 88
+        Top = 56
         Width = 120
         Height = 25
         Caption = '회원 가입'
@@ -79,15 +79,6 @@ object TfrmExample: TTfrmExample
         Caption = '가입여부확인'
         TabOrder = 1
         OnClick = btnCheckIsMemberClick
-      end
-      object btnCheckID: TButton
-        Left = 8
-        Top = 56
-        Width = 121
-        Height = 25
-        Caption = '아이디 중복 확인'
-        TabOrder = 2
-        OnClick = btnCheckIDClick
       end
     end
     object GroupBox11: TGroupBox
@@ -107,100 +98,13 @@ object TfrmExample: TTfrmExample
         OnClick = btnGetChargeInfoClick
       end
     end
-    object GroupBox4: TGroupBox
-      Left = 608
-      Top = 24
-      Width = 145
-      Height = 153
-      Caption = '담당자 관련'
-      TabOrder = 2
-      object btnUpdateContact: TButton
-        Left = 8
-        Top = 120
-        Width = 129
-        Height = 25
-        Caption = '담당자 정보 수정'
-        TabOrder = 0
-        OnClick = btnUpdateContactClick
-      end
-      object btnRegistContact: TButton
-        Left = 8
-        Top = 24
-        Width = 129
-        Height = 25
-        Caption = '담당자 추가'
-        TabOrder = 1
-        OnClick = btnRegistContactClick
-      end
-      object btnListContact: TButton
-        Left = 8
-        Top = 88
-        Width = 129
-        Height = 25
-        Caption = '담당자 목록 조회'
-        TabOrder = 2
-        OnClick = btnListContactClick
-      end
-      object btnGetContactInfo: TButton
-        Left = 8
-        Top = 56
-        Width = 129
-        Height = 25
-        Caption = '담당자 정보 확인'
-        TabOrder = 3
-        OnClick = btnGetContactInfoClick
-      end
-    end
-    object GroupBox16: TGroupBox
-      Left = 760
-      Top = 24
-      Width = 145
-      Height = 121
-      Caption = '회사정보 관련'
-      TabOrder = 3
-      object btnGetCorpInfo: TButton
-        Left = 8
-        Top = 24
-        Width = 128
-        Height = 25
-        Caption = '회사정보 조회'
-        TabOrder = 0
-        OnClick = btnGetCorpInfoClick
-      end
-      object btnUpdateCorpInfo: TButton
-        Left = 8
-        Top = 56
-        Width = 128
-        Height = 25
-        Caption = '회사정보 수정'
-        TabOrder = 1
-        OnClick = btnUpdateCorpInfoClick
-      end
-    end
-    object GroupBox2: TGroupBox
-      Left = 912
-      Top = 24
-      Width = 153
-      Height = 121
-      Caption = '기타'
-      TabOrder = 4
-      object btnGetAccessURL: TButton
-        Left = 8
-        Top = 24
-        Width = 129
-        Height = 25
-        Caption = '팝빌 로그인 URL'
-        TabOrder = 0
-        OnClick = btnGetAccessURLClick
-      end
-    end
     object GroupBox7: TGroupBox
       Left = 304
       Top = 24
       Width = 146
       Height = 121
       Caption = '연동과금 포인트'
-      TabOrder = 5
+      TabOrder = 2
       object btnGetChargeURL: TButton
         Left = 8
         Top = 56
@@ -208,7 +112,6 @@ object TfrmExample: TTfrmExample
         Height = 25
         Caption = '포인트충전 URL'
         TabOrder = 0
-        OnClick = btnGetChargeURLClick
       end
       object btnGetBalance: TButton
         Left = 8
@@ -224,9 +127,9 @@ object TfrmExample: TTfrmExample
       Left = 456
       Top = 24
       Width = 147
-      Height = 153
+      Height = 121
       Caption = '파트너과금 포인트'
-      TabOrder = 6
+      TabOrder = 3
       object btnGetPartnerBalance: TButton
         Left = 8
         Top = 24
@@ -235,33 +138,6 @@ object TfrmExample: TTfrmExample
         Caption = '파트너포인트 확인'
         TabOrder = 0
         OnClick = btnGetPartnerBalanceClick
-      end
-      object btnGetPartnerURL_CHRG: TButton
-        Left = 8
-        Top = 56
-        Width = 129
-        Height = 25
-        Caption = '포인트충전 URL'
-        TabOrder = 1
-        OnClick = btnGetPartnerURL_CHRGClick
-      end
-      object btnGetPaymentURL: TButton
-        Left = 8
-        Top = 88
-        Width = 129
-        Height = 25
-        Caption = '포인트 결제내역 URL'
-        TabOrder = 2
-        OnClick = btnGetPaymentURLClick
-      end
-      object btnGetUseHistoryURL: TButton
-        Left = 8
-        Top = 120
-        Width = 129
-        Height = 25
-        Caption = '포인트 사용내역 URL'
-        TabOrder = 3
-        OnClick = btnGetUseHistoryURLClick
       end
     end
   end

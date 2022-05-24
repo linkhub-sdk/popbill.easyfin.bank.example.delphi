@@ -1,7 +1,7 @@
 {********************************************************************************}
 { 팝빌 간편 계좌조회 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2022-04-07
+{ - 업데이트 일자 : 2022-01-06
 { - 연동 기술지원 연락처 : 1600-9854 / code@linkhubcorp.com
 { - SDK 튜토리얼 : https://docs.popbill.com/easyfinbank/tutorial/delphi
 {
@@ -35,24 +35,12 @@ type
     GroupBox9: TGroupBox;
     btnJoinMember: TButton;
     btnCheckIsMember: TButton;
-    btnCheckID: TButton;
     GroupBox11: TGroupBox;
     btnGetChargeInfo: TButton;
-    GroupBox4: TGroupBox;
-    btnUpdateContact: TButton;
-    btnRegistContact: TButton;
-    btnListContact: TButton;
-    GroupBox16: TGroupBox;
-    btnGetCorpInfo: TButton;
-    btnUpdateCorpInfo: TButton;
-    GroupBox2: TGroupBox;
-    btnGetAccessURL: TButton;
     GroupBox7: TGroupBox;
-    btnGetChargeURL: TButton;
     btnGetBalance: TButton;
     GroupBox10: TGroupBox;
     btnGetPartnerBalance: TButton;
-    btnGetPartnerURL_CHRG: TButton;
     GroupBox1: TGroupBox;
     GroupBox3: TGroupBox;
     GroupBox5: TGroupBox;
@@ -79,24 +67,12 @@ type
     btnCloseBankAccount: TButton;
     btnRevokeCloseBankAccount: TButton;
     btnDeleteBankAccount: TButton;
-    btnGetPaymentURL: TButton;
-    btnGetUseHistoryURL: TButton;
-    btnGetContactInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
-    procedure btnCheckIDClick(Sender: TObject);
     procedure btnJoinMemberClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
-    procedure btnGetChargeURLClick(Sender: TObject);
     procedure btnGetPartnerBalanceClick(Sender: TObject);
-    procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
-    procedure btnRegistContactClick(Sender: TObject);
-    procedure btnListContactClick(Sender: TObject);
-    procedure btnUpdateContactClick(Sender: TObject);
-    procedure btnGetCorpInfoClick(Sender: TObject);
-    procedure btnUpdateCorpInfoClick(Sender: TObject);
-    procedure btnGetAccessURLClick(Sender: TObject);
     procedure btnGetFlatRatePopUpURLClick(Sender: TObject);
     procedure btnGetFlatRateStateClick(Sender: TObject);
     procedure btnGetBankAccountMgtURLClick(Sender: TObject);
@@ -115,9 +91,6 @@ type
     procedure btnCloseBankAccountClick(Sender: TObject);
     procedure btnRevokeCloseBankAccountClick(Sender: TObject);
     procedure btnDeleteBankAccountClick(Sender: TObject);
-    procedure btnGetPaymentURLClick(Sender: TObject);
-    procedure btnGetUseHistoryURLClick(Sender: TObject);
-    procedure btnGetContactInfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -127,7 +100,7 @@ type
 var
   TfrmExample: TTfrmExample;
   easyFinBankService : TEasyFinBankService;
-  
+
 implementation
 
 {$R *.DFM}
@@ -136,17 +109,8 @@ procedure TTfrmExample.FormCreate(Sender: TObject);
 begin
         easyFinBankService := TEasyFinBankService.Create(LinkID,SecretKey);
 
-        // 연동환경 설정, true-개발용, false-상업용
+        // 연동환경 설정값, true(개발용), false(상업용)
         easyFinBankService.IsTest := true;
-
-        // Exception 처리 설정, true-사용, false-미사용, 기본값(true)
-        easyFinBankService.IsThrowException := true;
-
-        // 인증토큰 IP제한기능 사용여부, true-사용, false-미사용, 기본값(true)
-        easyFinBankService.IPRestrictOnOff := true;
-
-        //로컬시스템 시간 사용여부, true-사용, false-미사용, 기본값(true)
-        easyFinBankService.UseLocalTimeYN := false;
 
         StringGrid1.Cells[0,0] := 'tid';
         StringGrid1.Cells[1,0] := 'trdate';
@@ -175,7 +139,7 @@ var
         tmp : String;
 begin
         {**********************************************************************}
-        { 팝빌 계좌조회 API 서비스 과금정보를 확인합니다.
+        { 간편 계좌조회 서비스 과금정보를 확인합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#GetChargeInfo
         {**********************************************************************}
 
@@ -188,17 +152,10 @@ begin
                 end;
         end;
 
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
                 tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
                 tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
                 ShowMessage(tmp);
-        end;
 end;
 
 procedure TTfrmExample.btnCheckIsMemberClick(Sender: TObject);
@@ -206,7 +163,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
+        { 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#CheckIsMember 
         {**********************************************************************}
 
@@ -218,43 +175,11 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 
 end;
 
-procedure TTfrmExample.btnCheckIDClick(Sender: TObject);
-var
-        response : TResponse;
-begin
-        {**********************************************************************}
-        { 사용하고자 하는 아이디의 중복여부를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#CheckID
-        {**********************************************************************}
-
-        try
-                response := easyFinBankService.CheckID(txtUserID.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
-end;
 
 procedure TTfrmExample.btnJoinMemberClick(Sender: TObject);
 var
@@ -262,7 +187,7 @@ var
         joinInfo : TJoinForm;
 begin
         {**********************************************************************}
-        { 사용자를 연동회원으로 가입처리합니다.
+        { 파트너의 연동회원으로 회원가입을 요청합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#JoinMember
         {**********************************************************************}
 
@@ -290,14 +215,15 @@ begin
         // 아이디, 6자 이상 50자 미만
         joinInfo.ID     := 'userid';
 
-        // 비밀번호 (8자 이상 20자 미만) 영문, 숫자 ,특수문자 조합
-        joinInfo.Password := 'asdf123!@';
 
         // 담당자명, 최대 100자
         joinInfo.ContactName := '담당자명';
 
         // 담당자 연락처, 최대 20자
         joinInfo.ContactTEL :='070-4304-2991';
+
+        // 담당자 휴대폰번호, 최대 20자
+        joinInfo.ContactHP := '010-000-1111';
 
         // 담당자 메일 주소
         joinInfo.ContactEmail := 'code@linkhub.co.kr';
@@ -310,14 +236,9 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+
 
 end;
 
@@ -338,44 +259,12 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('잔여포인트 : ' + FloatToStr(balance));
-        end;
+
+        ShowMessage('잔여포인트 : ' + FloatToStr(balance));
+
 
 end;
 
-procedure TTfrmExample.btnGetChargeURLClick(Sender: TObject);
-var
-  resultURL : String;
-begin
-        {**********************************************************************}
-        { 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetChargeURL
-        {**********************************************************************}
-
-        try
-                resultURL := easyFinBankService.getChargeURL(txtCorpNum.Text, txtUserID.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('포인트충전 URL ' + #13 + resultURL);
-        end;
-
-end;
 
 procedure TTfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
 var
@@ -394,297 +283,19 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('잔여포인트 : ' + FloatToStr(balance));
-        end;
+
+
+        ShowMessage('잔여포인트 : ' + FloatToStr(balance));
 
 end;
 
-procedure TTfrmExample.btnGetPartnerURL_CHRGClick(Sender: TObject);
-var
-  resultURL : String;
-begin
-        {**********************************************************************}
-        { 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPartnerURL
-        {**********************************************************************}
-
-        try
-                resultURL := easyFinBankService.getPartnerURL(txtCorpNum.Text, 'CHRG');
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('URL : ' + #13 + resultURL);
-        end;
-
-end;
-
-procedure TTfrmExample.btnRegistContactClick(Sender: TObject);
-var
-        response : TResponse;
-        joinInfo : TJoinContact;
-begin
-        {**********************************************************************}
-        { 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#RegistContact
-        {**********************************************************************}
-
-        // [필수] 담당자 아이디 (6자 이상 50자 미만)
-        joinInfo.id := 'testkorea';
-
-        // 비밀번호 (8자 이상 20자 미만) 영문, 숫자 ,특수문자 조합
-        joinInfo.Password := 'asdf123!@';
-
-        // [필수] 담당자명 (한글이나 영문 100자 이내)
-        joinInfo.personName := '담당자명';
-
-        // [필수] 연락처 (최대 20자)
-        joinInfo.tel := '070-4304-2991';
-
-        // [필수] 이메일 주소 (최대 100자)
-        joinInfo.email := 'test@test.com';
-
-        // 담당자 권한, 1-개인권한 / 2-읽기권한 / 3-회사권한
-        joinInfo.searchRole := '3';
-
-        try
-                response := easyFinBankService.RegistContact(txtCorpNum.text, joinInfo);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
-
-end;
-
-procedure TTfrmExample.btnListContactClick(Sender: TObject);
-var
-        InfoList : TContactInfoList;
-        tmp : string;
-        i : Integer;
-begin
-        {**********************************************************************}
-        { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#ListContact
-        {**********************************************************************}
-
-        try
-                InfoList := easyFinBankService.ListContact(txtCorpNum.text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
-                        Exit;
-                end;
-        end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                tmp := 'id(아이디) | email(이메일) | personName(성명) | searchRole(담당자 권한) | ';
-                tmp := tmp + 'tel(연락처) | mgrYN(관리자 여부) | regDT(등록일시) | state(상태)' + #13;
-
-                for i := 0 to Length(InfoList) -1 do
-                begin
-                    tmp := tmp + InfoList[i].id + ' | ';
-                    tmp := tmp + InfoList[i].email + ' | ';
-                    tmp := tmp + InfoList[i].personName + ' | ';
-                    tmp := tmp + InfoList[i].searchRole + ' | ';
-                    tmp := tmp + InfoList[i].tel + ' | ';
-                    tmp := tmp + BoolToStr(InfoList[i].mgrYN) + ' | ';
-                    tmp := tmp + InfoList[i].regDT + ' | ';
-                    tmp := tmp + IntToStr(InfoList[i].state) + #13;
-                end;
-                ShowMessage(tmp);
-        end;
-end;
-
-procedure TTfrmExample.btnUpdateContactClick(Sender: TObject);
-var
-        contactInfo : TContactInfo;
-        response : TResponse;
-begin
-        {**********************************************************************}
-        { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#UpdateContact
-        {**********************************************************************}
-
-        contactInfo := TContactInfo.Create;
-
-        // 담당자 아이디
-        contactInfo.id := 'testkorea';
-
-        // 담당자명 (최대 100자)
-        contactInfo.personName := '테스트 담당자';
-
-        // 연락처 (최대 20자)
-        contactInfo.tel := '070-4304-2991';
-
-        // 이메일 주소 (최대 100자)
-        contactInfo.email := 'test@test.com';
-
-        // 담당자 권한, 1-개인권한 / 2-읽기권한 / 3-회사권한
-        contactInfo.searchRole := '3';
-
-        try
-                response := easyFinBankService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
-
-end;
-
-procedure TTfrmExample.btnGetCorpInfoClick(Sender: TObject);
-var
-        corpInfo : TCorpInfo;
-        tmp : string;
-begin
-        {**********************************************************************}
-        { 연동회원의 회사정보를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetCorpInfo
-        {**********************************************************************}
-
-        try
-                corpInfo := easyFinBankService.GetCorpInfo(txtCorpNum.text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
-                        Exit;
-                end;
-        end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                tmp := 'CorpName (상호) : ' + corpInfo.CorpName + #13;
-                tmp := tmp + 'CeoName (대표자성명) : ' + corpInfo.CeoName + #13;
-                tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
-                tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
-                tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
-                ShowMessage(tmp);
-        end;
-
-end;
-
-procedure TTfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
-var
-        corpInfo : TCorpInfo;
-        response : TResponse;
-begin
-        {**********************************************************************}
-        { 연동회원의 회사정보를 수정합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#UpdateCorpInfo
-        {**********************************************************************}
-
-        corpInfo := TCorpInfo.Create;
-
-        // 대표자명, 최대 30자
-        corpInfo.ceoname := '대표자명';
-
-        // 상호, 최대 70자
-        corpInfo.corpName := '상호';
-
-        // 업태, 최대 40자
-        corpInfo.bizType := '업태';
-
-        // 종목, 최대 40자
-        corpInfo.bizClass := '종목';
-
-        // 주소, 최대 300자
-        corpInfo.addr := '서울특별시 강남구 영동대로 517';
-
-        try
-                response := easyFinBankService.UpdateCorpInfo(txtCorpNum.text, corpInfo);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
-
-end;
-
-procedure TTfrmExample.btnGetAccessURLClick(Sender: TObject);
-var
-        resultURL : String;
-begin
-        {**********************************************************************}
-        { 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
-        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetAccessURL
-        {**********************************************************************}
-
-        try
-                resultURL := easyFinBankService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('URL : ' + #13 + resultURL);
-        end;
-end;
 
 procedure TTfrmExample.btnGetFlatRatePopUpURLClick(Sender: TObject);
 var
         resultURL : String;
 begin
         {**********************************************************************}
-        { 계좌조회 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
+        { 정액제 서비스 신청 URL을 반환한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#GetFlatRatePopUpURL 
         {**********************************************************************}
 
@@ -696,14 +307,9 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('URL : ' + #13 + resultURL);
-        end;
+        ShowMessage('URL : ' + #13 + resultURL);
+
+
 
 end;
 
@@ -713,7 +319,7 @@ var
         tmp, bankCode, accountNumber : String;
 begin
         {**********************************************************************}
-        { 계좌조회 정액제 서비스 상태를 확인합니다.
+        { 정액제 서비스 상태를 확인합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#GetFlatRateState
         {**********************************************************************}
 
@@ -721,7 +327,7 @@ begin
         bankCode := '0000';
 
         // 은행 계좌번호
-        accountNumber := '131020538600';
+        accountNumber := '1234567890123';
 
         try
                 stateInfo := easyFinBankService.GetFlatRateState(txtCorpNum.text, bankCode, accountNumber);
@@ -731,14 +337,6 @@ begin
                         Exit;
                 end;
         end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-
                 tmp := 'referenceID (계좌 아이디) : ' + stateInfo.referenceID + #13;
                 tmp := tmp + 'contractDT (정액제 서비스 시작일시) : ' + stateInfo.contractDT + #13;
                 tmp := tmp + 'useEndDate (정액제 서비스 종료일시) : ' + stateInfo.useEndDate + #13;
@@ -749,7 +347,6 @@ begin
                 tmp := tmp + 'closeOnExpired (정액제 만료시 해지 여부) : ' + BoolToStr(stateInfo.closeOnExpired) + #13;
                 tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(stateInfo.unPaidYN) + #13;
                 ShowMessage(tmp);
-        end;
 end;
 
 procedure TTfrmExample.btnGetBankAccountMgtURLClick(Sender: TObject);
@@ -757,8 +354,7 @@ var
         resultURL : String;
 begin
         {**********************************************************************}
-        { 계좌 등록, 수정 및 삭제할 수 있는 계좌 관리 팝업 URL을 반환합니다.
-        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+        { 계좌 관리 팝업 URL을 반환한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#GetBankAccountMgtURL
         {**********************************************************************}
 
@@ -770,14 +366,7 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('계좌 관리 팝업 URL' + #13 + resultURL);
-        end;
+        ShowMessage('계좌 관리 팝업 URL' + #13 + resultURL);
 
 end;
 
@@ -788,7 +377,7 @@ var
         i : Integer;
 begin
         {************************************************************************}
-        { 팝빌에 등록된 계좌정보 목록을 반환합니다.
+        { 팝빌에 등록된 은행계좌 목록을 반환한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#ListBankAccount
         {************************************************************************}
 
@@ -802,13 +391,6 @@ begin
                 end;
         end;
 
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin        
                 tmp := 'accountNumber(계좌번호) | bankCode(기관코드) | accountName(계좌 별칭) | accountType(계좌 유형) | ';
                 tmp := tmp + 'state(계좌 정액제 상태) | memo(메모)' + #13 ;
 
@@ -830,7 +412,6 @@ begin
                     tmp := tmp + bankAccountList[i].memo + #13;
                 end;
                 ShowMessage(tmp);
-        end;
 end;
 
 
@@ -839,9 +420,8 @@ var
         BankCode, AccountNumber, SDate, EDate, jobID: String;
 begin
         {************************************************************************}
-        { 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. (조회기간 단위 : 최대 1개월)
+        { 계좌 거래내역 수집을 요청한다. (조회기간 단위 : 최대 1개월)
         { - 조회일로부터 최대 3개월 이전 내역까지 조회할 수 있습니다.
-        { - 반환 받은 작업아이디는 함수 호출 시점부터 1시간 동안 유효합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#RequestJob
         {************************************************************************}
 
@@ -849,13 +429,13 @@ begin
         bankCode := '0000';
 
         // 계좌번호
-        accountNumber := '0022197672400';
+        accountNumber := '1234567890123';
 
         // 시작일자, 날자형식(yyyyMMdd)
-        SDate := '20220101';
+        SDate := '20220501';
 
         // 종료일자, 날자형식(yyyyMMdd)
-        EDate := '20220110';
+        EDate := '20220524';
 
         try
                 jobID := easyFinBankService.RequestJob(txtCorpNum.text, bankCode, accountNumber, SDate, EDate);
@@ -867,15 +447,8 @@ begin
                 end;
         end;
 
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('jobID : ' + jobID);
-                txtjobID.text := jobID;
-        end;
+         ShowMessage('jobID : ' + jobID);
+         txtjobID.text := jobID;
 end;
 
 procedure TTfrmExample.btnGetJobStateClick(Sender: TObject);
@@ -884,13 +457,7 @@ var
         tmp : String;
 begin
         {**********************************************************************}
-        { 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업 아이디의 상태를 확인합니다.
-        { - 거래 내역 조회(Search API) 함수 또는 거래 요약 정보 조회(Summary API) 함수전
-        {   수집 작업의 진행 상태, 수집 작업의 성공 여부를 확인해야 합니다.
-        { - 작업 상태(jobState) = 3(완료)이고 수집 결과 코드(errorCode) = 1(수집성공)이면
-        {   거래 내역 조회(Search) 또는 거래 요약 정보 조회(Summary) 를 해야합니다.
-        { - 작업 상태(jobState)가 3(완료)이지만 수집 결과 코드(errorCode)가 1(수집성공)이 아닌 경우에는
-        {   오류메시지(errorReason)로 수집 실패에 대한 원인을 파악할 수 있습니다. 
+        { 수집요청에 대한 상태를 확인합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#GetJobState
         {**********************************************************************}
 
@@ -902,13 +469,6 @@ begin
                         Exit;
                 end;
         end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 tmp := 'jobID(작업아이디) : '+ jobInfo.jobID + #13;
                 tmp := tmp + 'jobState(수집상태) : '+ IntToStr(jobInfo.jobState) + #13;
                 tmp := tmp + 'startDate(시작일자) : ' + jobInfo.startDate + #13;
@@ -919,7 +479,7 @@ begin
                 tmp := tmp + 'jobEndDT(작업 종료일시) : ' + jobInfo.jobEndDT + #13;
                 tmp := tmp + 'regDT(수집 요청일시) : ' + jobInfo.regDT + #13 + #13;
                 ShowMessage(tmp);
-        end;
+
 end;
 
 procedure TTfrmExample.btnListActiveJobClick(Sender: TObject);
@@ -929,8 +489,7 @@ var
         i : Integer;
 begin
         {************************************************************************}
-        { 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업아이디의 목록을 확인합니다.
-        { - 수집 요청 후 1시간이 경과한 수집 요청건은 상태정보가 반환되지 않습니다.
+        { 1시간 이내 수집 요청한 작업 상태를 확인합니다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#ListActiveJob         
         {************************************************************************}
 
@@ -943,14 +502,6 @@ begin
                         Exit;
                 end;
         end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin        
                 tmp := 'jobID(작업아이디) | jobState(수집상태) | ';
                 tmp := tmp + 'startDate (시작일자) | endDate(종료일자) | errorCode(오류코드) | errorReason(오류메시지) | ';
                 tmp := tmp + 'jobStartDT(작업 시작일시) | jobEndDT(작업 종료일시) | regDT(수집 요청일시) ' + #13;
@@ -969,7 +520,6 @@ begin
                 end;
                 txtJobId.text := jobList[0].jobID;
                 ShowMessage(tmp);
-        end;
 end;
 
 procedure TTfrmExample.btnSearchClick(Sender: TObject);
@@ -985,11 +535,11 @@ var
 
 begin
         {**********************************************************************}
-        { 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래 내역을 조회합니다.
+        { 계좌 거래내역을 조회한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#Search
         {**********************************************************************}
 
-        // 거래유형 배열, I - 입금, O - 출금
+        // 과세형태 배열, I - 입금, O - 출금
         SetLength(tradeType, 2);
         tradeType[0] := 'I';
         tradeType[1] := 'O';
@@ -1007,7 +557,7 @@ begin
         SearchString := '';
 
         try
-                searchInfo := easyFinBankService.Search(txtCorpNum.text, txtJobId.text, TradeType, SearchString, Page, PerPage, Order, txtUserID.text);
+                searchInfo := easyFinBankService.Search(txtCorpNum.text, txtJobID.text, TradeType, SearchString, Page, PerPage, Order, txtUserID.text);
 
         except
                 on le : EPopbillException do begin
@@ -1015,15 +565,6 @@ begin
                         Exit;
                 end;
         end;
-
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-                exit;
-        end
-        else
-        begin
 
                 tmp := 'code (응답코드) : ' + IntToStr(searchInfo.code) + #13;
                 tmp := tmp + 'total (총 검색결과 건수) : ' + IntToStr(searchInfo.total) + #13;
@@ -1049,7 +590,6 @@ begin
                         StringGrid1.Cells[11, i+1] := searchInfo.list[i].memo;        // 메모
                 end;
                 ShowMessage(tmp);
-        end;
 end;
 
 procedure TTfrmExample.btnSummaryClick(Sender: TObject);
@@ -1060,8 +600,7 @@ var
         searchString : string;
 begin
         {************************************************************************}
-        { 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래내역의 요약 정보를 조회합니다.
-        { - 요약 정보 : 입·출 금액 합계, 입·출 거래 건수
+        { 거래내역 요약정보를 조회한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#Summary
         {************************************************************************}
 
@@ -1082,14 +621,6 @@ begin
                         Exit;
                 end;
         end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-                exit;
-        end
-        else
-        begin
                 tmp := 'count (수집 결과 건수) : ' + IntToStr(summaryInfo.count) + #13;
                 tmp := tmp + 'cntAccIn (입금거래 건수) : ' + IntToStr(summaryInfo.cntAccIn) + #13;
                 tmp := tmp + 'cntAccOut (출금거래 건수) : ' + IntToStr(summaryInfo.cntAccOut) + #13;
@@ -1098,7 +629,7 @@ begin
 
                 ShowMessage(tmp);
                 exit;
-        end;
+
 end;
 
 procedure TTfrmExample.btnSaveMemoClick(Sender: TObject);
@@ -1107,7 +638,7 @@ var
         Memo : String;
 begin
         {**********************************************************************}
-        { 한 건의 거래 내역에 메모를 저장합니다.
+        { 계좌 거래내역에 메모를 저장한다.
         { - https://docs.popbill.com/easyfinbank/delphi/api#SaveMemo
         {**********************************************************************}
 
@@ -1122,14 +653,8 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+
 end;
 
 procedure TTfrmExample.OnSelectCell(Sender: TObject; ACol, ARow: Integer;
@@ -1149,7 +674,7 @@ var
         
 begin
         {**********************************************************************}
-        { 계좌조회 서비스를 이용할 계좌를 팝빌에 등록합니다.
+        { 계좌를 등록합니다.
         {- https://docs.popbill.com/easyfinbank/delphi/api#RegistBankAccount
         {**********************************************************************}
 
@@ -1201,15 +726,7 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
-
 end;
 
 procedure TTfrmExample.btnUpdateBankAccountClick(Sender: TObject);
@@ -1257,14 +774,8 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-               ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+
 
 end;
 
@@ -1283,10 +794,10 @@ begin
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        BankCode := '';
+        BankCode := '0000';
         
         // [필수] 계좌번호 하이픈('-') 제외
-        AccountNumber := '';
+        AccountNumber := '1234567890123';
 
         try
                 bankAccountInfo := easyFinBankService.GetBankAccountInfo(txtCorpNum.text, BankCode, AccountNumber);
@@ -1296,13 +807,6 @@ begin
                         Exit;
                 end;
         end;
-
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 tmp := 'bankCode (기관코드) : ' + bankAccountInfo.bankCode + #13;
                 tmp := tmp + 'accountNumber (계좌번호) : ' + bankAccountInfo.accountNumber + #13;
                 tmp := tmp + 'accountName (계좌별칭) : ' + bankAccountInfo.accountName + #13;
@@ -1319,7 +823,6 @@ begin
                 tmp := tmp + 'unPaidYN (미수금 보유 여부) : ' + BoolToStr(bankAccountInfo.unPaidYN) + #13;
 
                 ShowMessage(tmp);
-        end;
 
 end;
 
@@ -1329,7 +832,7 @@ var
         BankCode, AccountNumber, CloseType : string;
 begin
         {**********************************************************************}
-        { 계좌의 정액제 해지를 요청합니다.
+        { 팝빌에 등록된 계좌 정액제 해지를 신청합니다.
         {- https://docs.popbill.com/easyfinbank/delphi/api#CloseBankAccountInfo
         {**********************************************************************}
 
@@ -1337,10 +840,10 @@ begin
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        BankCode := '';
+        BankCode := '0000';
         
         // [필수] 계좌번호 하이픈('-') 제외
-        AccountNumber := '';
+        AccountNumber := '1234567890123';
 
         // 해지유형, '일반', '중도' 중 선택기재
         // 일반해지 - 이용중인 정액제 사용기간까지 이용 후 정지
@@ -1355,14 +858,8 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+
 end;
 
 procedure TTfrmExample.btnRevokeCloseBankAccountClick(Sender: TObject);
@@ -1371,7 +868,7 @@ var
         BankCode, AccountNumber : string;
 begin
         {**********************************************************************}
-        { 신청한 정액제 해지요청을 취소합니다.
+        { 계좌 정액제 해지신청을 취소합니다.
         {- https://docs.popbill.com/easyfinbank/delphi/api#RevokeCloseBankAccountInfo
         {**********************************************************************}
 
@@ -1379,10 +876,10 @@ begin
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        BankCode := '';
+        BankCode := '0000';
         
         // [필수] 계좌번호 하이픈('-') 제외
-        AccountNumber := '';
+        AccountNumber := '1234123123213';
 
 
         try
@@ -1393,14 +890,8 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
+
 end;
 
 procedure TTfrmExample.btnDeleteBankAccountClick(Sender: TObject);
@@ -1411,9 +902,7 @@ var
         
 begin
         {**********************************************************************}
-        { 등록된 계좌를 삭제합니다.
-        { - 정액제가 아닌 종량제 이용 시에만 등록된 계좌를 삭제할 수 있습니다.
-        { - 정액제 이용 시 정액제 해지요청(CloseBankAccount API) 함수를 사용하여 정액제를 해제할 수 있습니다.
+        { 종량제 계좌를 삭제합니다.
         {- https://docs.popbill.com/easyfinbank/delphi/api#DeleteBankAccount
         {**********************************************************************}
 
@@ -1421,10 +910,10 @@ begin
         // 산업은행-0002 / 기업은행-0003 / 국민은행-0004 / 수협-0007 / 농협은행-0011 / 우리은행-0020
         // SC은행-0023 / 대구은행-0031 / 부산은행-0032 / 광주은행-0034 / 제주은행-0035 / 전북은행-0037
         // 경남은행-0039 / 새마을금고-0045 / 신협은행-0048 / 우체국-0071 / KEB하나은행-0081 / 신한은행-0088 / 씨티은행-0027
-        BankCode := '';
+        BankCode := '0000';
 
         // [필수] 계좌번호 하이픈('-') 제외
-        AccountNumber := '';
+        AccountNumber := '123412123123';
 
         try
                 response := easyFinBankService.DeleteBankAccount(txtCorpNum.text, BankCode, AccountNumber);
@@ -1434,110 +923,9 @@ begin
                         Exit;
                 end;
         end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
                 ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-        end;
 
-end;
 
-procedure TTfrmExample.btnGetPaymentURLClick(Sender: TObject);
-var
-        resultURL : String;
-begin
-        {**********************************************************************}
-        { 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
-        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPaymentURL
-        {**********************************************************************}
-        
-        try
-                resultURL := easyFinBankService.getPaymentURL(txtCorpNum.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('URL :  ' + #13 + resultURL);
-        end;
-end;
-
-procedure TTfrmExample.btnGetUseHistoryURLClick(Sender: TObject);
-var
-        resultURL : String;
-begin
-        {**********************************************************************}
-        { 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
-        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetUseHistoryURL
-        {**********************************************************************}
-
-        try
-                resultURL := easyFinBankService.getUseHistoryURL(txtCorpNum.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+  easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                ShowMessage('URL :  ' + #13 + resultURL);
-        end;
-end;
-
-procedure TTfrmExample.btnGetContactInfoClick(Sender: TObject);
-var
-        contactInfo : TContactInfo;
-        contactID : string;
-        tmp : string;
-begin
-        {**********************************************************************}
-        { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetContactInfo
-        {**********************************************************************}
-
-        contactID := 'testkorea';
-        
-        try
-                contactInfo := easyFinBankService.getContactInfo(txtCorpNum.Text, contactID);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
-                        Exit;
-                end;
-        end;
-        if easyFinBankService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : ' + IntToStr(easyFinBankService.LastErrCode) + #10#13 +'응답메시지 : '+ easyFinBankService.LastErrMessage);
-        end
-        else
-        begin
-                tmp := 'id (아이디) : ' + contactInfo.id + #13;
-                tmp := tmp + 'personName (담당자 성명) : ' + contactInfo.personName + #13;
-                tmp := tmp + 'tel (담당자 연락처(전화번호)) : ' + contactInfo.tel + #13;
-                tmp := tmp + 'email (담당자 이메일) : ' + contactInfo.email + #13;
-                tmp := tmp + 'regDT (등록 일시) : ' + contactInfo.regDT + #13;
-                tmp := tmp + 'searchRole (담당자 권한) : ' + contactInfo.searchRole + #13;
-                tmp := tmp + 'mgrYN (관리자 여부) : ' + booltostr(contactInfo.mgrYN) + #13;
-                tmp := tmp + 'state (계정상태) : ' + inttostr(contactInfo.state) + #13;
-                ShowMessage(tmp);
-        end
 end;
 
 end.
