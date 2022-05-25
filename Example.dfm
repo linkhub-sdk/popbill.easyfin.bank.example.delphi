@@ -105,21 +105,13 @@ object TfrmExample: TTfrmExample
       Height = 121
       Caption = '연동과금 포인트'
       TabOrder = 2
-      object btnGetChargeURL: TButton
-        Left = 8
-        Top = 56
-        Width = 129
-        Height = 25
-        Caption = '포인트충전 URL'
-        TabOrder = 0
-      end
       object btnGetBalance: TButton
         Left = 8
         Top = 24
         Width = 129
         Height = 25
         Caption = '잔여포인트 확인'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnGetBalanceClick
       end
     end
