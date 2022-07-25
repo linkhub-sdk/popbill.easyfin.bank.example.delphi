@@ -1,7 +1,7 @@
 {********************************************************************************}
 { 팝빌 간편 계좌조회 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2022-04-07
+{ - 업데이트 일자 : 2022-07-25
 { - 연동 기술지원 연락처 : 1600-9854 / code@linkhubcorp.com
 { - SDK 튜토리얼 : https://docs.popbill.com/easyfinbank/tutorial/delphi
 {
@@ -1007,7 +1007,7 @@ begin
         SearchString := '';
 
         try
-                searchInfo := easyFinBankService.Search(txtCorpNum.text, txtJobId.text, TradeType, SearchString, Page, PerPage, Order, txtUserID.text);
+                searchInfo := easyFinBankService.Search(txtCorpNum.text, txtJobId.text, TradeType, SearchString, Page, PerPage, Order);
 
         except
                 on le : EPopbillException do begin
@@ -1074,7 +1074,7 @@ begin
         SearchString := '';
 
         try
-                summaryInfo := easyFinBankService.Summary(txtCorpNum.text, txtJobId.text, TradeType, SearchString, txtUserID.text);
+                summaryInfo := easyFinBankService.Summary(txtCorpNum.text, txtJobId.text, TradeType, SearchString);
 
         except
                 on le : EPopbillException do begin
@@ -1456,7 +1456,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := easyFinBankService.getPaymentURL(txtCorpNum.Text);
+                resultURL := easyFinBankService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1484,7 +1484,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := easyFinBankService.getUseHistoryURL(txtCorpNum.Text);
+                resultURL := easyFinBankService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);

@@ -1,8 +1,8 @@
 object TfrmExample: TTfrmExample
   Left = 711
-  Top = 183
+  Top = 182
   Width = 1139
-  Height = 776
+  Height = 777
   Caption = '팝빌 간편 계좌조회 Delphi SDK Example'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -275,14 +275,14 @@ object TfrmExample: TTfrmExample
     object Label2: TLabel
       Left = 16
       Top = 224
-      Width = 136
+      Width = 129
       Height = 13
       Caption = '수집 작업 아이디 (JobID) : '
     end
     object Label1: TLabel
       Left = 384
       Top = 224
-      Width = 120
+      Width = 113
       Height = 13
       Caption = '거래내역 아이디(TID) : '
     end
