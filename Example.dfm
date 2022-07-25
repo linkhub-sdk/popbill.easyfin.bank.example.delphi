@@ -30,6 +30,14 @@ object TfrmExample: TTfrmExample
     AutoSize = False
     Caption = '팝빌아이디 : '
   end
+  object Label5: TLabel
+    Left = 768
+    Top = 20
+    Width = 41
+    Height = 13
+    AutoSize = False
+    Caption = 'URL : '
+  end
   object txtCorpNum: TEdit
     Left = 160
     Top = 16
@@ -507,5 +515,13 @@ object TfrmExample: TTfrmExample
       ImeName = '한국어 입력 시스템 (IME 2000)'
       TabOrder = 6
     end
+  end
+  object txtURL: TEdit
+    Left = 808
+    Top = 16
+    Width = 297
+    Height = 21
+    ImeName = 'Microsoft IME 2010'
+    TabOrder = 4
   end
 end

@@ -82,6 +82,8 @@ type
     btnGetPaymentURL: TButton;
     btnGetUseHistoryURL: TButton;
     btnGetContactInfo: TButton;
+    txtURL: TEdit;
+    Label5: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -360,6 +362,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getChargeURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -416,6 +419,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getPartnerURL(txtCorpNum.Text, 'CHRG');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -663,6 +667,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -690,6 +695,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getFlatRatePopUpURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -764,6 +770,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getBankAccountMgtURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1457,6 +1464,7 @@ begin
         
         try
                 resultURL := easyFinBankService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1485,6 +1493,7 @@ begin
 
         try
                 resultURL := easyFinBankService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
