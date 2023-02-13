@@ -3,7 +3,7 @@
 {
 { - 업데이트 일자 : 2022-07-25
 { - 연동 기술지원 연락처 : 1600-9854 / code@linkhubcorp.com
-{ - SDK 튜토리얼 : https://docs.popbill.com/easyfinbank/tutorial/delphi
+{ - SDK 튜토리얼 : https://developers.popbill.com/guide/easyfinbank/delphi/getting-started/tutorial
 {
 {********************************************************************************}
 
@@ -178,7 +178,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌 계좌조회 API 서비스 과금정보를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetChargeInfo
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetChargeInfo
         {**********************************************************************}
 
         try
@@ -209,7 +209,7 @@ var
 begin
         {**********************************************************************}
         { 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#CheckIsMember 
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#CheckIsMember
         {**********************************************************************}
 
         try
@@ -237,7 +237,7 @@ var
 begin
         {**********************************************************************}
         { 사용하고자 하는 아이디의 중복여부를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#CheckID
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#CheckID
         {**********************************************************************}
 
         try
@@ -265,7 +265,7 @@ var
 begin
         {**********************************************************************}
         { 사용자를 연동회원으로 가입처리합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#JoinMember
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#JoinMember
         {**********************************************************************}
 
         // 링크아이디
@@ -329,7 +329,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 잔여포인트를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetBalance
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetBalance
         {**********************************************************************}
 
         try
@@ -357,7 +357,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetChargeURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetChargeURL
         {**********************************************************************}
 
         try
@@ -386,7 +386,7 @@ var
 begin
         {**********************************************************************}
         { 파트너의 잔여포인트를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPartnerBalance
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetPartnerBalance
         {**********************************************************************}
 
         try
@@ -414,7 +414,7 @@ var
 begin
         {**********************************************************************}
         { 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPartnerURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetPartnerURL
         {**********************************************************************}
 
         try
@@ -444,7 +444,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#RegistContact
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#RegistContact
         {**********************************************************************}
 
         // [필수] 담당자 아이디 (6자 이상 50자 미만)
@@ -492,7 +492,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#ListContact
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#ListContact
         {**********************************************************************}
 
         try
@@ -535,7 +535,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#UpdateContact
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#UpdateContact
         {**********************************************************************}
 
         contactInfo := TContactInfo.Create;
@@ -581,7 +581,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 회사정보를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetCorpInfo
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#GetCorpInfo
         {**********************************************************************}
 
         try
@@ -616,7 +616,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 회사정보를 수정합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#UpdateCorpInfo
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#UpdateCorpInfo
         {**********************************************************************}
 
         corpInfo := TCorpInfo.Create;
@@ -662,7 +662,7 @@ begin
         {**********************************************************************}
         { 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetAccessURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#GetAccessURL
         {**********************************************************************}
 
         try
@@ -690,7 +690,7 @@ var
 begin
         {**********************************************************************}
         { 계좌조회 정액제 서비스 신청 페이지의 팝업 URL을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetFlatRatePopUpURL 
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetFlatRatePopUpURL 
         {**********************************************************************}
 
         try
@@ -720,7 +720,7 @@ var
 begin
         {**********************************************************************}
         { 계좌조회 정액제 서비스 상태를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetFlatRateState
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetFlatRateState
         {**********************************************************************}
 
         // 기관코드
@@ -765,7 +765,7 @@ begin
         {**********************************************************************}
         { 계좌 등록, 수정 및 삭제할 수 있는 계좌 관리 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetBankAccountMgtURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#GetBankAccountMgtURL
         {**********************************************************************}
 
         try
@@ -796,7 +796,7 @@ var
 begin
         {************************************************************************}
         { 팝빌에 등록된 계좌정보 목록을 반환합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#ListBankAccount
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#ListBankAccount
         {************************************************************************}
 
         try
@@ -849,7 +849,7 @@ begin
         { 계좌 거래내역을 확인하기 위해 팝빌에 수집요청을 합니다. (조회기간 단위 : 최대 1개월)
         { - 조회일로부터 최대 3개월 이전 내역까지 조회할 수 있습니다.
         { - 반환 받은 작업아이디는 함수 호출 시점부터 1시간 동안 유효합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#RequestJob
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/job#RequestJob
         {************************************************************************}
 
         // 기관코드
@@ -898,7 +898,7 @@ begin
         {   거래 내역 조회(Search) 또는 거래 요약 정보 조회(Summary) 를 해야합니다.
         { - 작업 상태(jobState)가 3(완료)이지만 수집 결과 코드(errorCode)가 1(수집성공)이 아닌 경우에는
         {   오류메시지(errorReason)로 수집 실패에 대한 원인을 파악할 수 있습니다. 
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetJobState
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/job#GetJobState
         {**********************************************************************}
 
         try
@@ -938,7 +938,7 @@ begin
         {************************************************************************}
         { 수집 요청(RequestJob API) 함수를 통해 반환 받은 작업아이디의 목록을 확인합니다.
         { - 수집 요청 후 1시간이 경과한 수집 요청건은 상태정보가 반환되지 않습니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#ListActiveJob         
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/job#ListActiveJob
         {************************************************************************}
 
         try
@@ -993,7 +993,7 @@ var
 begin
         {**********************************************************************}
         { 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래 내역을 조회합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#Search
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/search#Search
         {**********************************************************************}
 
         // 거래유형 배열, I - 입금, O - 출금
@@ -1069,7 +1069,7 @@ begin
         {************************************************************************}
         { 수집 상태 확인(GetJobState API) 함수를 통해 상태 정보가 확인된 작업아이디를 활용하여 계좌 거래내역의 요약 정보를 조회합니다.
         { - 요약 정보 : 입·출 금액 합계, 입·출 거래 건수
-        { - https://docs.popbill.com/easyfinbank/delphi/api#Summary
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/search#Summary
         {************************************************************************}
 
         // 거래유형 배열, I-입금, O-출금
@@ -1115,7 +1115,7 @@ var
 begin
         {**********************************************************************}
         { 한 건의 거래 내역에 메모를 저장합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#SaveMemo
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/search#SaveMemo
         {**********************************************************************}
 
         // 메모
@@ -1157,7 +1157,7 @@ var
 begin
         {**********************************************************************}
         { 계좌조회 서비스를 이용할 계좌를 팝빌에 등록합니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#RegistBankAccount
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#RegistBankAccount
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1226,7 +1226,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에 등록된 계좌정보를 수정합니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#UpdateBankAccount
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#UpdateBankAccount
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1283,7 +1283,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에 등록된 계좌정보를 확인합니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#GetBankAccountInfo
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#GetBankAccountInfo
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1337,7 +1337,7 @@ var
 begin
         {**********************************************************************}
         { 계좌의 정액제 해지를 요청합니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#CloseBankAccountInfo
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#CloseBankAccount
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1379,7 +1379,7 @@ var
 begin
         {**********************************************************************}
         { 신청한 정액제 해지요청을 취소합니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#RevokeCloseBankAccountInfo
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#RevokeCloseBankAccount
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1421,7 +1421,7 @@ begin
         { 등록된 계좌를 삭제합니다.
         { - 정액제가 아닌 종량제 이용 시에만 등록된 계좌를 삭제할 수 있습니다.
         { - 정액제 이용 시 정액제 해지요청(CloseBankAccount API) 함수를 사용하여 정액제를 해제할 수 있습니다.
-        {- https://docs.popbill.com/easyfinbank/delphi/api#DeleteBankAccount
+        {- https://developers.popbill.com/reference/easyfinbank/delphi/api/manage#DeleteBankAccount
         {**********************************************************************}
 
         // [필수] 기관코드
@@ -1459,7 +1459,7 @@ begin
         {**********************************************************************}
         { 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetPaymentURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetPaymentURL
         {**********************************************************************}
         
         try
@@ -1488,7 +1488,7 @@ begin
         {**********************************************************************}
         { 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetUseHistoryURL
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/point#GetUseHistoryURL
         {**********************************************************************}
 
         try
@@ -1518,7 +1518,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 확인합니다.
-        { - https://docs.popbill.com/easyfinbank/delphi/api#GetContactInfo
+        { - https://developers.popbill.com/reference/easyfinbank/delphi/api/member#GetContactInfo
         {**********************************************************************}
 
         contactID := 'testkorea';
