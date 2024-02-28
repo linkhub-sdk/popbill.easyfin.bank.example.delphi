@@ -1,9 +1,21 @@
 {********************************************************************************}
-{ 팝빌 간편 계좌조회 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2022-07-25
-{ - 연동 기술지원 연락처 : 1600-9854 / code@linkhubcorp.com
-{ - SDK 튜토리얼 : https://developers.popbill.com/guide/easyfinbank/delphi/getting-started/tutorial
+{ 팝빌 계좌조회 API Delphi SDK Example
+{ Delphi 연동 튜토리얼 안내 : https://developers.popbill.com/guide/easyfinbank/delphi/getting-started/tutorial
+{
+{ 업데이트 일자 : 2024-02-26
+{ 연동기술지원 연락처 : 1600-9854
+{ 연동기술지원 이메일 : code@linkhubcorp.com
+{
+{ <테스트 연동개발 준비사항>
+{ 1) API Key 변경 (연동신청 시 메일로 전달된 정보)
+{    - LinkID : 링크허브에서 발급한 링크아이디
+{    - SecretKey : 링크허브에서 발급한 비밀키
+{ 2) SDK 환경설정 옵션 설정
+{    - IsTest : 연동환경 설정, true-테스트, false-운영(Production), (기본값:true)
+{    - IsThrowException : 예외 처리 설정, true-사용, false-미사용, (기본값:true)
+{    - IPRestrictOnOff : 인증토큰 IP 검증 설정, true-사용, false-미사용, (기본값:true)
+{    - UseLocalTimeYN : 로컬시스템 시간 사용여부, true-사용, false-미사용, (기본값:true)
 {
 {********************************************************************************}
 
@@ -18,10 +30,10 @@ uses
 
 const
 
-        // 링크아이디, 연동신청시 발급받은 인증정보로 변경.
+        // 링크아이디
         LinkID = 'TESTER';
 
-        // 비밀키, 유출에 주의. 연동신청시 발급받은 인증정보로 변경.
+        // 비밀키
         SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
   
 
@@ -136,18 +148,19 @@ implementation
 
 procedure TTfrmExample.FormCreate(Sender: TObject);
 begin
+        // 계좌조회 모듈 초기화
         easyFinBankService := TEasyFinBankService.Create(LinkID,SecretKey);
 
-        // 연동환경 설정, true-개발용, false-상업용
+        // 연동환경 설정, true-테스트, false-운영(Production), (기본값:true)
         easyFinBankService.IsTest := true;
 
-        // Exception 처리 설정, true-사용, false-미사용, 기본값(true)
+        // 예외 처리 설정, true-사용, false-미사용, (기본값:true)
         easyFinBankService.IsThrowException := true;
 
-        // 인증토큰 IP제한기능 사용여부, true-사용, false-미사용, 기본값(true)
+        // 인증토큰 IP 검증 설정, true-사용, false-미사용, (기본값:true)
         easyFinBankService.IPRestrictOnOff := true;
 
-        //로컬시스템 시간 사용여부, true-사용, false-미사용, 기본값(true)
+        // 로컬시스템 시간 사용여부, true-사용, false-미사용, (기본값:true)
         easyFinBankService.UseLocalTimeYN := false;
 
         StringGrid1.Cells[0,0] := 'tid';
